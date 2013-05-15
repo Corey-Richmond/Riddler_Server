@@ -125,12 +125,10 @@ exports.updateRiddlesStared = function(req, res) {
     console.log('retrieving user: ' + username);
     db.collection('users', function(err, collection) {
         collection.findOne({'username':username}, function(err, item) {
-		if(item.riddlesstarted == null){
-			item.riddlesstarted= [];
-		}
-		for(var i = 0; i < item.riddlesstarted.length; ++i){
-			if(item.riddlesstarted[i]._id == body.riddlesstarted._id)
-				item.riddlesstared.remove(i);
+		for (var index in item.riddlesstarted)
+		{
+			if (item.riddlesstarted[index]._id == body.riddlesstarted['_id'])
+				delete item.riddlesstarted.splice(index,1);		
 		}
 		item.riddlesstarted.push(body.riddlesstarted);
 		collection.update({'username': username},item, {safe:true}, function(err, result) {
