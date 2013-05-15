@@ -1,31 +1,31 @@
 var mongo = require('mongodb');
- 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
- 
-var mongoUri = process.env.MONGOLAB_URI || 
-  process.env.MONGOHQ_URL || 
-  'mongodb://localhost/userdb'; 
+
+var uri = 'mongodb://heroku_app15661377:rua3udqps19inr4l3l9mvi1qh2@ds029257.mongolab.com:29257/heroku_app15661377';
 
 var db = null;
-Db.connect(mongoUri, function (err, aDb) {
-	db = aDb;
-});
-//var server = new Server('localhost', 27017, {auto_reconnect: true});
-//db = new Db('userdb', server);
- 
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'userdb' database");
-        db.collection('users', {strict:true}, function(err, collection) {
+mongo.MongoClient.connect(uri, function(err, adb){
+	if(err){
+		console.log("Error: unable to connect to database");
+		return;
+	}
+	db = adb;
+	console.log("Connected to 'riddledb' database");
+        db.collection('riddles', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'users' collection doesn't exist. Creating it with sample data...");
+                console.log("The 'riddles' collection doesn't exist. Creating it with sample data...");
                 populateDB();
             }
         });
-    }
+
 });
+
+	
+
+var Server = mongo.Server,
+    //Db = mongo.Db,
+    BSON = mongo.BSONPure;
+
+
  
 exports.findByUserName = function(req, res) {
     var username = req.params.username;
