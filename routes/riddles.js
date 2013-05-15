@@ -4,8 +4,15 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
  
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('riddledb', server);
+var mongoUri = process.env.MONGOLAB_URI || 
+  process.env.MONGOHQ_URL || 
+  'mongodb://localhost/userdb'; 
+
+var db = null;
+Db.connect(mongoUri, function (err, aDb) {
+	db = aDb;
+});
+
  
 db.open(function(err, db) {
     if(!err) {
