@@ -24,5 +24,5 @@ app.put('/users/riddlescreated/:username', user.updateRiddlesCreated);
 app.put('/users/riddlesstarted/:username', user.updateRiddlesStared);
 app.delete('/users/:username', user.deleteUser);
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
 console.log('Listening on port 5000...');

@@ -1,6 +1,6 @@
 var mongo = require('mongodb');
 
-var uri = 'mongodb://heroku_app15661377:rua3udqps19inr4l3l9mvi1qh2@ds029257.mongolab.com:29257/heroku_app15661377';
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost/heroku_app15661377';
 
 var db = null;
 mongo.MongoClient.connect(uri, function(err, adb){
@@ -9,7 +9,7 @@ mongo.MongoClient.connect(uri, function(err, adb){
 		return;
 	}
 	db = adb;
-	console.log("Connected to 'riddledb' database");
+	console.log("Connected to database for riddles collection");
         db.collection('riddles', {strict:true}, function(err, collection) {
             if (err) {
                 console.log("The 'riddles' collection doesn't exist. Creating it with sample data...");
@@ -18,6 +18,7 @@ mongo.MongoClient.connect(uri, function(err, adb){
         });
 
 });
+
 
 	
 
