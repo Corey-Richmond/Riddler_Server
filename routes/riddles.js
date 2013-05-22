@@ -40,6 +40,8 @@ exports.deleteall = function(req, res) {
     db.collection('users', function(err, collection) {
         collection.remove();
     });
+    res.send('DELTETED');
+
 };
 
 exports.findAll = function(req, res) {
