@@ -95,9 +95,14 @@ exports.deleteall = function(req, res) {
     db.collection('riddles', function(err, collection) {
         collection.remove({},function(err, removed){
    	 });
+    });
+    db.collection('users;, function(err, collection) {
+        collection.remove({},function(err, removed){
+   	 });
 	res.send('DELTETED');
 
     });
+
     
 }
  
