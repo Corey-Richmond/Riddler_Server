@@ -33,16 +33,7 @@ exports.findById = function(req, res) {
     });
 };
  
-exports.deleteall = function(req, res) {
-    db.collection('riddles', function(err, collection) {
-        collection.remove();
-    });
-    db.collection('users', function(err, collection) {
-        collection.remove();
-    });
-    res.send('DELTETED');
 
-};
 
 exports.findAll = function(req, res) {
     db.collection('riddles', function(err, collection) {
@@ -99,6 +90,15 @@ exports.deleteRiddle = function(req, res) {
         });
     });
 }
+
+exports.deleteall = function(req, res) {
+    db.collection('riddles', function(err, collection) {
+        collection.remove();
+	res.send('DELTETED');
+
+    });
+    
+};
  
 
 
