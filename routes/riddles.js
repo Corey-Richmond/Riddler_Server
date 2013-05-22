@@ -93,12 +93,13 @@ exports.deleteRiddle = function(req, res) {
 
 exports.deleteall = function(req, res) {
     db.collection('riddles', function(err, collection) {
-        collection.remove();
+        collection.remove({},function(err, removed){
+   	 });
 	res.send('DELTETED');
 
     });
     
-};
+}
  
 
 
