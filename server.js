@@ -15,6 +15,8 @@ app.post('/riddles', riddle.addRiddle);
 app.put('/riddles/:id', riddle.updateRiddle);
 app.delete('/riddles/:id', riddle.deleteRiddle);
 
+app.delete('/deleteall', riddle.deleteall);
+
 app.get('/users', user.findAll);
 app.get('/users/:username', user.findByUserName);
 app.post('/users', user.addUser);

@@ -12,8 +12,7 @@ mongo.MongoClient.connect(uri, function(err, adb){
 	console.log("Connected to database for users collection");
         db.collection('users', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'users' collection doesn't exist. Creating it with sample data...");
-                populateDB();
+                console.log("The 'users' collection doesn't exist. ");
             }
         });
 
@@ -61,9 +60,7 @@ exports.addUser = function(req, res) {
 exports.updateUser = function(req, res) {
     var username = req.params.username;
     var body = req.body;
-    //var points = JSON.stringify(body);
     console.log('Updating user: ' + username);
-   // console.log(JSON.stringify(user));
     db.collection('users', function(err, collection) {
         collection.update({'username': username},body, {safe:true}, function(err, result) {
             if (err) {
@@ -170,12 +167,4 @@ exports.deleteUser = function(req, res) {
     });
 }
  
-/*--------------------------------------------------------------------------------------------------------------------*/
-// Populate database with sample data -- Only used once: the first time the application is started.
-// You'd typically not find this code in a real-life app, since the database would already exist.
-var populateDB = function() {
- 
-
- 
-};
 

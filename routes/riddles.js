@@ -12,34 +12,16 @@ mongo.MongoClient.connect(uri, function(err, adb){
 	console.log("Connected to database for riddles collection");
         db.collection('riddles', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'riddles' collection doesn't exist. Creating it with sample data...");
-                populateDB();
+                console.log("The 'riddles' collection doesn't exist.");
             }
         });
 
 });
-
-
 	
 
 var Server = mongo.Server,
-    //Db = mongo.Db,
     BSON = mongo.BSONPure;
  
-//var server = new Server('localhost', 27017, {auto_reconnect: true});
-//db = new Db('riddledb', server);
- 
-//db.open(function(err, db) {
-//    if(!err) {
-//        console.log("Connected to 'riddledb' database");
-//        db.collection('riddles', {strict:true}, function(err, collection) {
-//            if (err) {
-//                console.log("The 'riddles' collection doesn't exist. Creating it with sample data...");
- //               populateDB();
- //           }
- //       });
- //   }
-///});
  
 exports.findById = function(req, res) {
     var id = req.params.id;
@@ -51,6 +33,15 @@ exports.findById = function(req, res) {
     });
 };
  
+exports.deleteall = function(req, res) {
+    db.collection('riddles', function(err, collection) {
+        collection.remove();
+    });
+    db.collection('users', function(err, collection) {
+        collection.remove();
+    });
+};
+
 exports.findAll = function(req, res) {
     db.collection('riddles', function(err, collection) {
         collection.find().toArray(function(err, items) {
@@ -107,13 +98,5 @@ exports.deleteRiddle = function(req, res) {
     });
 }
  
-/*--------------------------------------------------------------------------------------------------------------------*/
-// Populate database with sample data -- Only used once: the first time the application is started.
-// You'd typically not find this code in a real-life app, since the database would already exist.
-var populateDB = function() {
- 
-
- 
-};
 
 
